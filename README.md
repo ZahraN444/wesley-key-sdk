@@ -12,19 +12,19 @@ Find out more about Swagger: [http://swagger.io](http://swagger.io)
 Run the following command to install the package and automatically add the dependency to your composer.json file:
 
 ```bash
-composer require "gallagher-suarez-traders/wesley-key-sdk:0.1.2"
+composer require "gallagher-suarez-traders/wesley-key-sdk:0.1.3"
 ```
 
 Or add it to the composer.json file manually as given below:
 
 ```json
 "require": {
-    "gallagher-suarez-traders/wesley-key-sdk": "0.1.2"
+    "gallagher-suarez-traders/wesley-key-sdk": "0.1.3"
 }
 ```
 
 You can also view the package at:
-https://packagist.org/packages/gallagher-suarez-traders/wesley-key-sdk#0.1.2
+https://packagist.org/packages/gallagher-suarez-traders/wesley-key-sdk#0.1.3
 
 ## Test the SDK
 
@@ -37,7 +37,7 @@ You can change the PHPUnit test configuration in the `phpunit.xml` file.
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
@@ -54,10 +54,10 @@ The following parameters are configurable for the API Client:
 | retryOnTimeout | `bool` | Whether to retry on request timeout.<br>*Default*: `true` |
 | httpStatusCodesToRetry | `array` | Http status codes to retry against.<br>*Default*: `408, 413, 429, 500, 502, 503, 504, 521, 522, 524` |
 | httpMethodsToRetry | `array` | Http methods to retry against.<br>*Default*: `'GET', 'PUT'` |
-| proxyConfiguration | [`ProxyConfigurationBuilder`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/proxy-configuration-builder.md) | Represents the proxy configurations for API calls |
-| apiKeyCredentials | [`ApiKeyCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/auth/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
-| httpBasicCredentials | [`HttpBasicCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
-| petstoreAuthCredentials | [`PetstoreAuthCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/auth/oauth-2-implicit-grant.md) | The Credentials Setter for OAuth 2 Implicit Grant |
+| proxyConfiguration | [`ProxyConfigurationBuilder`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/proxy-configuration-builder.md) | Represents the proxy configurations for API calls |
+| apiKeyCredentials | [`ApiKeyCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/auth/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
+| httpBasicCredentials | [`HttpBasicCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
+| petstoreAuthCredentials | [`PetstoreAuthCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/auth/oauth-2-implicit-grant.md) | The Credentials Setter for OAuth 2 Implicit Grant |
 
 The API client can be initialized as follows:
 
@@ -114,29 +114,29 @@ The SDK can be configured to use a different environment for making API calls. A
 
 This API uses the following authentication schemes.
 
-* [`api_key (Custom Header Signature)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/auth/custom-header-signature.md)
-* [`httpBasic (Basic Authentication)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/auth/basic-authentication.md)
-* [`petstore_auth (OAuth 2 Implicit Grant)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/auth/oauth-2-implicit-grant.md)
+* [`api_key (Custom Header Signature)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/auth/custom-header-signature.md)
+* [`httpBasic (Basic Authentication)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/auth/basic-authentication.md)
+* [`petstore_auth (OAuth 2 Implicit Grant)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/auth/oauth-2-implicit-grant.md)
 
 ## List of APIs
 
-* [Pet](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/controllers/pet.md)
-* [Store](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/controllers/store.md)
-* [User](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/controllers/user.md)
+* [Pet](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/controllers/pet.md)
+* [Store](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/controllers/store.md)
+* [User](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/controllers/user.md)
 
 ## SDK Infrastructure
 
 ### Configuration
 
-* [ProxyConfigurationBuilder](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/proxy-configuration-builder.md)
+* [ProxyConfigurationBuilder](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/proxy-configuration-builder.md)
 
 ### HTTP
 
-* [HttpRequest](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/http-request.md)
-* [HttpResponse](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/http-response.md)
+* [HttpRequest](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/http-request.md)
+* [HttpResponse](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/http-response.md)
 
 ### Utilities
 
-* [FileWrapper](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/file-wrapper.md)
-* [ApiException](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.2/doc/api-exception.md)
+* [FileWrapper](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/file-wrapper.md)
+* [ApiException](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.3/doc/api-exception.md)
 
