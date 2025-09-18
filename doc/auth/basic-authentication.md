@@ -7,14 +7,14 @@ Documentation for accessing and setting credentials for httpBasic.
 
 ## Auth Credentials
 
-| Name | Type | Description | Setter |
-|  --- | --- | --- | --- |
-| username | `string` | - | `username` |
-| passwprd | `string` | - | `passwprd` |
+| Name | Type | Description | Setter | Getter |
+|  --- | --- | --- | --- | --- |
+| username | `string` | - | `username` | `getUsername()` |
+| passwprd | `string` | - | `passwprd` | `getPasswprd()` |
 
 
 
-**Note:** Auth credentials can be set using `httpBasicCredentials` object in the client.
+**Note:** Auth credentials can be set using `HttpBasicCredentialsBuilder::init()` in `httpBasicCredentials` method in the client builder and accessed through `getHttpBasicCredentials` method in the client instance.
 
 ## Usage Example
 
@@ -22,15 +22,18 @@ Documentation for accessing and setting credentials for httpBasic.
 
 You must provide credentials in the client as shown in the following code snippet.
 
-```ts
-import { Client } from 'package-wesley-key';
+```php
+use SwaggerPetstoreLib\Authentication\HttpBasicCredentialsBuilder;
+use SwaggerPetstoreLib\SwaggerPetstoreClientBuilder;
 
-const client = new Client({
-  httpBasicCredentials: {
-    username: 'username',
-    passwprd: 'passwprd'
-  },
-});
+$client = SwaggerPetstoreClientBuilder::init()
+    ->httpBasicCredentials(
+        HttpBasicCredentialsBuilder::init(
+            'username',
+            'passwprd'
+        )
+    )
+    ->build();
 ```
 
 

@@ -9,14 +9,14 @@ OAuth 2 Authorization endpoint response
 
 ## Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `accessToken` | `string` | Required | Access token |
-| `tokenType` | `string` | Required | Type of access token |
-| `expiresIn` | `bigint \| undefined` | Optional | Time in seconds before the access token expires |
-| `scope` | `string \| undefined` | Optional | List of scopes granted<br>This is a space-delimited list of strings. |
-| `expiry` | `bigint \| undefined` | Optional | Time of token expiry as unix timestamp (UTC) |
-| `refreshToken` | `string \| undefined` | Optional | Refresh token<br>Used to get a new access token when it expires. |
+| Name | Type | Tags | Description | Getter | Setter |
+|  --- | --- | --- | --- | --- | --- |
+| `accessToken` | `string` | Required | Access token | getAccessToken(): string | setAccessToken(string accessToken): void |
+| `tokenType` | `string` | Required | Type of access token | getTokenType(): string | setTokenType(string tokenType): void |
+| `expiresIn` | `?int` | Optional | Time in seconds before the access token expires | getExpiresIn(): ?int | setExpiresIn(?int expiresIn): void |
+| `scope` | `?string` | Optional | List of scopes granted<br>This is a space-delimited list of strings. | getScope(): ?string | setScope(?string scope): void |
+| `expiry` | `?int` | Optional | Time of token expiry as unix timestamp (UTC) | getExpiry(): ?int | setExpiry(?int expiry): void |
+| `refreshToken` | `?string` | Optional | Refresh token<br>Used to get a new access token when it expires. | getRefreshToken(): ?string | setRefreshToken(?string refreshToken): void |
 
 ## Example (as JSON)
 

@@ -7,19 +7,17 @@ Documentation for accessing and setting credentials for petstore_auth.
 
 ## Auth Credentials
 
-| Name | Type | Description | Setter |
-|  --- | --- | --- | --- |
-| OAuthClientId | `string` | OAuth 2 Client ID | `oAuthClientId` |
-| OAuthRedirectUri | `string` | OAuth 2 Redirection endpoint or Callback Uri | `oAuthRedirectUri` |
-| OAuthToken | `OAuthToken` | Object for storing information about the OAuth token | `oAuthToken` |
-| OAuthScopes | `OAuthScopePetstoreAuthEnum[]` | List of scopes that apply to the OAuth token | `oAuthScopes` |
-| OAuthClockSkew | `number` | Clock skew time in seconds applied while checking the OAuth Token expiry. | `clockSkew` |
-| OAuthTokenProvider | `(lastOAuthToken: OAuthToken \| undefined, authManager: PetstoreAuthManager) => Promise<OAuthToken>` | Registers a callback for oAuth Token Provider used for automatic token fetching/refreshing. | `oAuthTokenProvider` |
-| OAuthOnTokenUpdate | `(token: OAuthToken) => void` | Registers a callback for token update event. | `oAuthOnTokenUpdate` |
+| Name | Type | Description | Setter | Getter |
+|  --- | --- | --- | --- | --- |
+| OAuthClientId | `string` | OAuth 2 Client ID | `oAuthClientId` | `getOAuthClientId()` |
+| OAuthRedirectUri | `string` | OAuth 2 Redirection endpoint or Callback Uri | `oAuthRedirectUri` | `getOAuthRedirectUri()` |
+| OAuthToken | `OAuthToken\|null` | Object for storing information about the OAuth token | `oAuthToken` | `getOAuthToken()` |
+| OAuthScopes | `string[]\|null` | List of scopes that apply to the OAuth token | `oAuthScopes` | `getOAuthScopes()` |
+| OAuthClockSkew | `int` | Clock skew time in seconds applied while checking the OAuth Token expiry. | `oAuthClockSkew` | - |
 
 
 
-**Note:** Auth credentials can be set using `petstoreAuthCredentials` object in the client.
+**Note:** Auth credentials can be set using `PetstoreAuthCredentialsBuilder::init()` in `petstoreAuthCredentials` method in the client builder and accessed through `getPetstoreAuthCredentials` method in the client instance.
 
 ## Usage Example
 
@@ -33,8 +31,9 @@ This process requires the presence of a client-side JavaScript code on the redir
 
 To obtain user's consent, you must redirect the user to the authorization page. The `buildAuthorizationUrl()` method creates the URL to the authorization page. You must have initialized the client with scopes for which you need permission to access.
 
-```ts
-const authUrl = client.petstoreAuthManager?.buildAuthorizationUrl();
+```php
+$authUrl = $client->getPetstoreAuthCredentials()->buildAuthorizationUrl();
+header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
 ```
 
 ### 2\. Handle the OAuth server response
@@ -55,7 +54,7 @@ Scopes enable your application to only request access to the resources it needs 
 
 | Scope Name | Description |
 |  --- | --- |
-| `Readpets` | read your pets |
-| `Writepets` | modify pets in your account |
+| `READPETS` | read your pets |
+| `WRITEPETS` | modify pets in your account |
 
 

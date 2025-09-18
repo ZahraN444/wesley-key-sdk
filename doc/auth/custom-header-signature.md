@@ -7,13 +7,13 @@ Documentation for accessing and setting credentials for api_key.
 
 ## Auth Credentials
 
-| Name | Type | Description | Setter |
-|  --- | --- | --- | --- |
-| api_key | `string` | - | `apiKey` |
+| Name | Type | Description | Setter | Getter |
+|  --- | --- | --- | --- | --- |
+| api_key | `string` | - | `apiKey` | `getApiKey()` |
 
 
 
-**Note:** Auth credentials can be set using `apiKeyCredentials` object in the client.
+**Note:** Auth credentials can be set using `ApiKeyCredentialsBuilder::init()` in `apiKeyCredentials` method in the client builder and accessed through `getApiKeyCredentials` method in the client instance.
 
 ## Usage Example
 
@@ -21,14 +21,17 @@ Documentation for accessing and setting credentials for api_key.
 
 You must provide credentials in the client as shown in the following code snippet.
 
-```ts
-import { Client } from 'package-wesley-key';
+```php
+use SwaggerPetstoreLib\Authentication\ApiKeyCredentialsBuilder;
+use SwaggerPetstoreLib\SwaggerPetstoreClientBuilder;
 
-const client = new Client({
-  apiKeyCredentials: {
-    'api_key': 'api_key'
-  },
-});
+$client = SwaggerPetstoreClientBuilder::init()
+    ->apiKeyCredentials(
+        ApiKeyCredentialsBuilder::init(
+            'api_key'
+        )
+    )
+    ->build();
 ```
 
 

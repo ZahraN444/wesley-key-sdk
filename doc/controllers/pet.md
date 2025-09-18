@@ -4,8 +4,8 @@ Everything about your Pets
 
 Find out more: [http://swagger.io](http://swagger.io)
 
-```ts
-const petController = new PetController(client);
+```php
+$petController = $client->getPetController();
 ```
 
 ## Class Name
@@ -28,72 +28,52 @@ const petController = new PetController(client);
 
 Returns a single pet
 
-```ts
-async getPetById(
-  petId: bigint,
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<Pet>>
+```php
+function getPetById(int $petId): Pet
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `petId` | `bigint` | Template, Required | ID of pet to return |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+| `petId` | `int` | Template, Required | ID of pet to return |
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `result` property of this instance returns the response data which is of type [`Pet`](../../doc/models/pet.md).
+[`Pet`](../../doc/models/pet.md)
 
 ## Example Usage
 
-```ts
-const petId = BigInt(152);
+```php
+$petId = 152;
 
-try {
-  const { result, ...httpResponse } = await petController.getPetById(petId);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$result = $petController->getPetById($petId);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Invalid ID supplied | `ApiError` |
-| 404 | Pet not found | `ApiError` |
+| 400 | Invalid ID supplied | `ApiException` |
+| 404 | Pet not found | `ApiException` |
 
 
 # Update Pet With Form
 
 Updates a pet in the store with form data
 
-```ts
-async updatePetWithForm(
-  petId: bigint,
-  contentType: ContentTypeEnum,
-  name?: string,
-  status?: string,
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<void>>
+```php
+function updatePetWithForm(int $petId, string $contentType, ?string $name = null, ?string $status = null): void
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `petId` | `bigint` | Template, Required | ID of pet that needs to be updated |
-| `contentType` | [`ContentTypeEnum`](../../doc/models/content-type-enum.md) | Header, Required | - |
-| `name` | `string \| undefined` | Form, Optional | Updated name of the pet |
-| `status` | `string \| undefined` | Form, Optional | Updated status of the pet |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+| `petId` | `int` | Template, Required | ID of pet that needs to be updated |
+| `contentType` | [`string(ContentTypeEnum)`](../../doc/models/content-type-enum.md) | Header, Required | - |
+| `name` | `?string` | Form, Optional | Updated name of the pet |
+| `status` | `?string` | Form, Optional | Updated status of the pet |
 
 ## Requires scope
 
@@ -103,56 +83,42 @@ async updatePetWithForm(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance.
+`void`
 
 ## Example Usage
 
-```ts
-const petId = BigInt(152);
+```php
+$petId = 152;
 
-const contentType = ContentTypeEnum.EnumApplicationxwwwformurlencoded;
+$contentType = ContentTypeEnum::ENUM_APPLICATIONXWWWFORMURLENCODED;
 
-try {
-  const { result, ...httpResponse } = await petController.updatePetWithForm(
-    petId,
-    contentType
-  );
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$petController->updatePetWithForm(
+    $petId,
+    $contentType
+);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 405 | Invalid input | `ApiError` |
+| 405 | Invalid input | `ApiException` |
 
 
 # Delete Pet
 
 Deletes a pet
 
-```ts
-async deletePet(
-  petId: bigint,
-  apiKey?: string,
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<void>>
+```php
+function deletePet(int $petId, ?string $apiKey = null): void
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `petId` | `bigint` | Template, Required | Pet id to delete |
-| `apiKey` | `string \| undefined` | Header, Optional | - |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+| `petId` | `int` | Template, Required | Pet id to delete |
+| `apiKey` | `?string` | Header, Optional | - |
 
 ## Requires scope
 
@@ -162,42 +128,30 @@ async deletePet(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance.
+`void`
 
 ## Example Usage
 
-```ts
-const petId = BigInt(152);
+```php
+$petId = 152;
 
-try {
-  const { result, ...httpResponse } = await petController.deletePet(petId);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$petController->deletePet($petId);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Invalid ID supplied | `ApiError` |
-| 404 | Pet not found | `ApiError` |
+| 400 | Invalid ID supplied | `ApiException` |
+| 404 | Pet not found | `ApiException` |
 
 
 # Add Pet
 
 Add a new pet to the store
 
-```ts
-async addPet(
-  body: PetRequest,
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<void>>
+```php
+function addPet(PetRequest $body): void
 ```
 
 ## Parameters
@@ -205,7 +159,6 @@ async addPet(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`PetRequest`](../../doc/models/pet-request.md) | Body, Required | Pet object that needs to be added to the store |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Requires scope
 
@@ -215,46 +168,34 @@ async addPet(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance.
+`void`
 
 ## Example Usage
 
-```ts
-const body: PetRequest = {
-  name: 'name6',
-  photoUrls: [
-    'photoUrls1'
-  ],
-};
+```php
+$body = PetRequestBuilder::init(
+    'name6',
+    [
+        'photoUrls1'
+    ]
+)->build();
 
-try {
-  const { result, ...httpResponse } = await petController.addPet(body);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$petController->addPet($body);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 405 | Invalid input | `ApiError` |
+| 405 | Invalid input | `ApiException` |
 
 
 # Update Pet
 
 Update an existing pet
 
-```ts
-async updatePet(
-  body: PetRequest,
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<void>>
+```php
+function updatePet(PetRequest $body): void
 ```
 
 ## Parameters
@@ -262,7 +203,6 @@ async updatePet(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`PetRequest`](../../doc/models/pet-request.md) | Body, Required | Pet object that needs to be added to the store |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Requires scope
 
@@ -272,56 +212,43 @@ async updatePet(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance.
+`void`
 
 ## Example Usage
 
-```ts
-const body: PetRequest = {
-  name: 'name6',
-  photoUrls: [
-    'photoUrls1'
-  ],
-};
+```php
+$body = PetRequestBuilder::init(
+    'name6',
+    [
+        'photoUrls1'
+    ]
+)->build();
 
-try {
-  const { result, ...httpResponse } = await petController.updatePet(body);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$petController->updatePet($body);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Invalid ID supplied | `ApiError` |
-| 404 | Pet not found | `ApiError` |
-| 405 | Validation exception | `ApiError` |
+| 400 | Invalid ID supplied | `ApiException` |
+| 404 | Pet not found | `ApiException` |
+| 405 | Validation exception | `ApiException` |
 
 
 # Find Pets by Status
 
 Multiple status values can be provided with comma separated strings
 
-```ts
-async findPetsByStatus(
-  status: Status2Enum[],
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<Pet[]>>
+```php
+function findPetsByStatus(array $status): array
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `status` | [`Status2Enum[]`](../../doc/models/status-2-enum.md) | Query, Required | Status values that need to be considered for filter |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+| `status` | [`string(Status2Enum)[]`](../../doc/models/status-2-enum.md) | Query, Required | Status values that need to be considered for filter |
 
 ## Requires scope
 
@@ -331,57 +258,42 @@ async findPetsByStatus(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `result` property of this instance returns the response data which is of type [`Pet[]`](../../doc/models/pet.md).
+[`Pet[]`](../../doc/models/pet.md)
 
 ## Example Usage
 
-```ts
-const status: Status2Enum[] = [
-  Status2Enum.Pending,
-  Status2Enum.Sold,
-  Status2Enum.Available
+```php
+$status = [
+    Status2Enum::PENDING,
+    Status2Enum::SOLD,
+    Status2Enum::AVAILABLE
 ];
 
-try {
-  const { result, ...httpResponse } = await petController.findPetsByStatus(status);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$result = $petController->findPetsByStatus($status);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Invalid status value | `ApiError` |
+| 400 | Invalid status value | `ApiException` |
 
 
 # Upload File
 
 uploads an image
 
-```ts
-async uploadFile(
-  petId: bigint,
-  additionalMetadata?: string,
-  file?: FileWrapper,
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<MApiResponse>>
+```php
+function uploadFile(int $petId, ?string $additionalMetadata = null, ?FileWrapper $file = null): ApiResponse
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `petId` | `bigint` | Template, Required | ID of pet to update |
-| `additionalMetadata` | `string \| undefined` | Form, Optional | Additional data to pass to server |
-| `file` | `FileWrapper \| undefined` | Form, Optional | file to upload |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+| `petId` | `int` | Template, Required | ID of pet to update |
+| `additionalMetadata` | `?string` | Form, Optional | Additional data to pass to server |
+| `file` | `?FileWrapper` | Form, Optional | file to upload |
 
 ## Requires scope
 
@@ -391,23 +303,14 @@ async uploadFile(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `result` property of this instance returns the response data which is of type [`MApiResponse`](../../doc/models/m-api-response.md).
+[`ApiResponse`](../../doc/models/api-response.md)
 
 ## Example Usage
 
-```ts
-const petId = BigInt(152);
+```php
+$petId = 152;
 
-try {
-  const { result, ...httpResponse } = await petController.uploadFile(petId);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$result = $petController->uploadFile($petId);
 ```
 
 
@@ -417,11 +320,8 @@ try {
 
 Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
 
-```ts
-async findPetsByTags(
-  tags: string[],
-  requestOptions?: RequestOptions
-): Promise<ApiResponse<Pet[]>>
+```php
+function findPetsByTags(array $tags): array
 ```
 
 ## Parameters
@@ -429,7 +329,6 @@ async findPetsByTags(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `tags` | `string[]` | Query, Required | Tags to filter by |
-| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Requires scope
 
@@ -439,31 +338,22 @@ async findPetsByTags(
 
 ## Response Type
 
-This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The `result` property of this instance returns the response data which is of type [`Pet[]`](../../doc/models/pet.md).
+[`Pet[]`](../../doc/models/pet.md)
 
 ## Example Usage
 
-```ts
-const tags: string[] = [
-  'tags5',
-  'tags6'
+```php
+$tags = [
+    'tags5',
+    'tags6'
 ];
 
-try {
-  const { result, ...httpResponse } = await petController.findPetsByTags(tags);
-  // Get more response info...
-  // const { statusCode, headers } = httpResponse;
-} catch (error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
+$result = $petController->findPetsByTags($tags);
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Invalid tag value | `ApiError` |
+| 400 | Invalid tag value | `ApiException` |
 

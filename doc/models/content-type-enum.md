@@ -9,5 +9,5 @@
 
 | Name |
 |  --- |
-| `EnumApplicationxwwwformurlencoded` |
+| `ENUM_APPLICATIONXWWWFORMURLENCODED` |
 
