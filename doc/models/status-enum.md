@@ -1,8 +1,6 @@
 
 # Status Enum
 
-pet status in the store
-
 ## Enumeration
 
 `StatusEnum`
@@ -11,7 +9,13 @@ pet status in the store
 
 | Name |
 |  --- |
-| `AVAILABLE` |
-| `PENDING` |
-| `SOLD` |
+| `Active` |
+| `Inactive` |
+| `Pending` |
+
+## Example
+
+```
+pending
+```
 
