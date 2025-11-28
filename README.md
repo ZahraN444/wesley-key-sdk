@@ -1,80 +1,142 @@
 
-# Getting Started with Cypress Test API
+# Getting Started with Swagger Petstore
 
 ## Introduction
 
-This is a sample API to demonstrate an OpenAPI spec with multiple endpoints and a custom model.
+This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.
+
+Find out more about Swagger: [http://swagger.io](http://swagger.io)
 
 ## Install the Package
 
-Run the following command from your project directory to install the package from npm:
+Run the following command to install the package and automatically add the dependency to your composer.json file:
 
 ```bash
-npm install package-wesley-key@0.1.6
+composer require "gallagher-suarez-traders/wesley-key-sdk:0.1.7"
 ```
 
-For additional package details, see the [Npm page for the package-wesley-key@0.1.6 npm](https://www.npmjs.com/package/package-wesley-key/v/0.1.6).
+Or add it to the composer.json file manually as given below:
+
+```json
+"require": {
+    "gallagher-suarez-traders/wesley-key-sdk": "0.1.7"
+}
+```
+
+You can also view the package at:
+https://packagist.org/packages/gallagher-suarez-traders/wesley-key-sdk#0.1.7
 
 ## Test the SDK
 
-To validate the functionality of this SDK, you can execute all tests located in the `test` directory. This SDK utilizes `Jest` as both the testing framework and test runner.
+Unit tests in this SDK can be run using PHPUnit.
 
-To run the tests, navigate to the root directory of the SDK and execute the following command:
+1. First install the dependencies using composer including the `require-dev` dependencies.
+2. Run `vendor\bin\phpunit --verbose` from commandline to execute tests. If you have installed PHPUnit globally, run tests using `phpunit --verbose` instead.
 
-```bash
-npm run test
-```
-
-Or you can also run tests with coverage report:
-
-```bash
-npm run test:coverage
-```
+You can change the PHPUnit test configuration in the `phpunit.xml` file.
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| defaultHost | `string` | *Default*: `'www.example.com'` |
-| environment | `Environment` | The API environment. <br> **Default: `Environment.Production`** |
-| timeout | `number` | Timeout for API calls.<br>*Default*: `0` |
-| httpClientOptions | [`Partial<HttpClientOptions>`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/http-client-options.md) | Stable configurable http client options. |
-| unstableHttpClientOptions | `any` | Unstable configurable http client options. |
+| testHeader | `string` | This is a test header<br>*Default*: `'TestHeaderDefaultValue'` |
+| environment | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
+| timeout | `int` | Timeout for API calls in seconds.<br>*Default*: `0` |
+| enableRetries | `bool` | Whether to enable retries and backoff feature.<br>*Default*: `false` |
+| numberOfRetries | `int` | The number of retries to make.<br>*Default*: `0` |
+| retryInterval | `float` | The retry time interval between the endpoint calls.<br>*Default*: `1` |
+| backOffFactor | `float` | Exponential backoff factor to increase interval between retries.<br>*Default*: `2` |
+| maximumRetryWaitTime | `int` | The maximum wait time in seconds for overall retrying requests.<br>*Default*: `0` |
+| retryOnTimeout | `bool` | Whether to retry on request timeout.<br>*Default*: `true` |
+| httpStatusCodesToRetry | `array` | Http status codes to retry against.<br>*Default*: `408, 413, 429, 500, 502, 503, 504, 521, 522, 524` |
+| httpMethodsToRetry | `array` | Http methods to retry against.<br>*Default*: `'GET', 'PUT'` |
+| proxyConfiguration | [`ProxyConfigurationBuilder`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/proxy-configuration-builder.md) | Represents the proxy configurations for API calls |
+| apiKeyCredentials | [`ApiKeyCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/auth/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
+| httpBasicCredentials | [`HttpBasicCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
+| petstoreAuthCredentials | [`PetstoreAuthCredentials`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/auth/oauth-2-implicit-grant.md) | The Credentials Setter for OAuth 2 Implicit Grant |
 
 The API client can be initialized as follows:
 
-```ts
-import { Client, Environment } from 'package-wesley-key';
+```php
+use SwaggerPetstoreLib\Environment;
+use SwaggerPetstoreLib\Authentication\ApiKeyCredentialsBuilder;
+use SwaggerPetstoreLib\Authentication\HttpBasicCredentialsBuilder;
+use SwaggerPetstoreLib\Authentication\PetstoreAuthCredentialsBuilder;
+use SwaggerPetstoreLib\Models\OAuthScopePetstoreAuthEnum;
+use SwaggerPetstoreLib\SwaggerPetstoreClientBuilder;
 
-const client = new Client({
-  timeout: 0,
-  environment: Environment.Production,
-  defaultHost: 'www.example.com',
-});
+$client = SwaggerPetstoreClientBuilder::init()
+    ->apiKeyCredentials(
+        ApiKeyCredentialsBuilder::init(
+            'api_key'
+        )
+    )
+    ->httpBasicCredentials(
+        HttpBasicCredentialsBuilder::init(
+            'username',
+            'passwprd'
+        )
+    )
+    ->petstoreAuthCredentials(
+        PetstoreAuthCredentialsBuilder::init(
+            'OAuthClientId',
+            'OAuthRedirectUri'
+        )
+            ->oAuthScopes(
+                [
+                    OAuthScopePetstoreAuthEnum::READPETS,
+                    OAuthScopePetstoreAuthEnum::WRITEPETS
+                ]
+            )
+    )
+    ->testHeader('TestHeaderDefaultValue')
+    ->environment(Environment::PRODUCTION)
+    ->build();
 ```
+
+## Environments
+
+The SDK can be configured to use a different environment for making API calls. Available environments are:
+
+### Fields
+
+| Name | Description |
+|  --- | --- |
+| production | **Default** |
+| environment2 | - |
+| environment3 | - |
+
+## Authorization
+
+This API uses the following authentication schemes.
+
+* [`api_key (Custom Header Signature)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/auth/custom-header-signature.md)
+* [`httpBasic (Basic Authentication)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/auth/basic-authentication.md)
+* [`petstore_auth (OAuth 2 Implicit Grant)`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/auth/oauth-2-implicit-grant.md)
 
 ## List of APIs
 
-* [API](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/controllers/api.md)
+* [Pet](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/controllers/pet.md)
+* [Store](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/controllers/store.md)
+* [User](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/controllers/user.md)
 
 ## SDK Infrastructure
 
 ### Configuration
 
-* [HttpClientOptions](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/http-client-options.md)
-* [RetryConfiguration](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/retry-configuration.md)
-* [ProxySettings](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/proxy-settings.md)
+* [ProxyConfigurationBuilder](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/proxy-configuration-builder.md)
 
 ### HTTP
 
-* [HttpRequest](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/http-request.md)
+* [HttpRequest](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/http-request.md)
+* [HttpResponse](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/http-response.md)
 
 ### Utilities
 
-* [ApiResponse](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/api-response.md)
-* [ApiError](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.6/doc/api-error.md)
+* [FileWrapper](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/file-wrapper.md)
+* [ApiException](https://www.github.com/ZahraN444/wesley-key-sdk/tree/0.1.7/doc/api-exception.md)
 
