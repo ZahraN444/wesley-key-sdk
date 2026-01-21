@@ -5,70 +5,64 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| testHeader | `string` | This is a test header<br>*Default*: `'TestHeaderDefaultValue'` |
-| environment | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
-| timeout | `int` | Timeout for API calls in seconds.<br>*Default*: `0` |
-| enableRetries | `bool` | Whether to enable retries and backoff feature.<br>*Default*: `false` |
-| numberOfRetries | `int` | The number of retries to make.<br>*Default*: `0` |
-| retryInterval | `float` | The retry time interval between the endpoint calls.<br>*Default*: `1` |
-| backOffFactor | `float` | Exponential backoff factor to increase interval between retries.<br>*Default*: `2` |
-| maximumRetryWaitTime | `int` | The maximum wait time in seconds for overall retrying requests.<br>*Default*: `0` |
-| retryOnTimeout | `bool` | Whether to retry on request timeout.<br>*Default*: `true` |
-| httpStatusCodesToRetry | `array` | Http status codes to retry against.<br>*Default*: `408, 413, 429, 500, 502, 503, 504, 521, 522, 524` |
-| httpMethodsToRetry | `array` | Http methods to retry against.<br>*Default*: `'GET', 'PUT'` |
-| proxyConfiguration | [`ProxyConfigurationBuilder`](../doc/proxy-configuration-builder.md) | Represents the proxy configurations for API calls |
-| apiKeyCredentials | [`ApiKeyCredentials`](auth/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
-| httpBasicCredentials | [`HttpBasicCredentials`](auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
-| petstoreAuthCredentials | [`PetstoreAuthCredentials`](auth/oauth-2-implicit-grant.md) | The Credentials Setter for OAuth 2 Implicit Grant |
+| defaultHost | `string` | *Default*: `'www.example.com'` |
+| environment | `Environment` | The API environment. <br> **Default: `Environment.Production`** |
+| timeout | `number` | Timeout for API calls.<br>*Default*: `0` |
+| httpClientOptions | [`Partial<HttpClientOptions>`](../doc/http-client-options.md) | Stable configurable http client options. |
+| unstableHttpClientOptions | `any` | Unstable configurable http client options. |
 
 The API client can be initialized as follows:
 
-```php
-use SwaggerPetstoreLib\Environment;
-use SwaggerPetstoreLib\Authentication\ApiKeyCredentialsBuilder;
-use SwaggerPetstoreLib\Authentication\HttpBasicCredentialsBuilder;
-use SwaggerPetstoreLib\Authentication\PetstoreAuthCredentialsBuilder;
-use SwaggerPetstoreLib\Models\OAuthScopePetstoreAuthEnum;
-use SwaggerPetstoreLib\SwaggerPetstoreClientBuilder;
+## Code-Based Client Initialization
 
-$client = SwaggerPetstoreClientBuilder::init()
-    ->apiKeyCredentials(
-        ApiKeyCredentialsBuilder::init(
-            'api_key'
-        )
-    )
-    ->httpBasicCredentials(
-        HttpBasicCredentialsBuilder::init(
-            'username',
-            'passwprd'
-        )
-    )
-    ->petstoreAuthCredentials(
-        PetstoreAuthCredentialsBuilder::init(
-            'OAuthClientId',
-            'OAuthRedirectUri'
-        )
-            ->oAuthScopes(
-                [
-                    OAuthScopePetstoreAuthEnum::READPETS,
-                    OAuthScopePetstoreAuthEnum::WRITEPETS
-                ]
-            )
-    )
-    ->testHeader('TestHeaderDefaultValue')
-    ->environment(Environment::PRODUCTION)
-    ->build();
+```ts
+import { Client, Environment } from 'package-wesley-key';
+
+const client = new Client({
+  timeout: 0,
+  environment: Environment.Production,
+  defaultHost: 'www.example.com',
+});
 ```
 
-## Swagger Petstore Client
+## Configuration-Based Client Initialization
 
-The gateway for the SDK. This class acts as a factory for the Controllers and also holds the configuration of the SDK.
+```ts
+import * as path from 'path';
+import * as fs from 'fs';
+import { Client } from 'package-wesley-key';
 
-## Controllers
+// Provide absolute path for the configuration file
+const absolutePath = path.resolve('./config.json');
 
-| Name | Description |
-|  --- | --- |
-| getPetController() | Gets PetController |
-| getStoreController() | Gets StoreController |
-| getUserController() | Gets UserController |
+// Read the configuration file content
+const fileContent = fs.readFileSync(absolutePath, 'utf-8');
+
+// Initialize client from JSON configuration content
+const client = Client.fromJsonConfig(fileContent);
+```
+
+See the [Configuration-Based Client Initialization](../doc/configuration-based-client-initialization.md) section for details.
+
+## Environment-Based Client Initialization
+
+```ts
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+import * as fs from 'fs';
+import { Client } from 'package-wesley-key';
+
+// Optional - Provide absolute path for the .env file
+const absolutePath = path.resolve('./.env');
+
+if (fs.existsSync(absolutePath)) {
+  // Load environment variables from .env file
+  dotenv.config({ path: absolutePath, override: true });
+}
+
+// Initialize client using environment variables
+const client = Client.fromEnvironment(process.env);
+```
+
+See the [Environment-Based Client Initialization](../doc/environment-based-client-initialization.md) section for details.
 
