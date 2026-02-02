@@ -11,7 +11,7 @@ The status of the items to filter by.
 
 | Name |
 |  --- |
-| `Enumvalue1` |
-| `Enumvalue2` |
-| `Enumvalue3` |
+| `ENUMVALUE1` |
+| `ENUMVALUE2` |
+| `ENUMVALUE3` |
 

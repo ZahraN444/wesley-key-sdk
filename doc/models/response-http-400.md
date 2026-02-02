@@ -7,9 +7,9 @@
 
 ## Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `detail` | `string \| undefined` | Optional | - |
+| Name | Type | Tags | Description | Getter | Setter |
+|  --- | --- | --- | --- | --- | --- |
+| `detail` | `?string` | Optional | - | getDetail(): ?string | setDetail(?string detail): void |
 
 ## Example (as JSON)
 

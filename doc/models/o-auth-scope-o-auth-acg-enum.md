@@ -11,8 +11,8 @@ OAuth 2 scopes supported by the API
 
 | Name |
 |  --- |
-| `EnumFileRequestsread` |
-| `Zahra` |
-| `Test1` |
-| `Selection` |
+| `ENUM_FILE_REQUESTSREAD` |
+| `ZAHRA` |
+| `TEST1` |
+| `SELECTION` |
 

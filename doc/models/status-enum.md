@@ -9,9 +9,9 @@
 
 | Name |
 |  --- |
-| `Active` |
-| `Inactive` |
-| `Pending` |
+| `ACTIVE` |
+| `INACTIVE` |
+| `PENDING` |
 
 ## Example
 

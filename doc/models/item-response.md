@@ -7,11 +7,11 @@
 
 ## Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `id` | `string \| undefined` | Optional | - |
-| `name` | `string \| undefined` | Optional | - |
-| `message` | `string \| undefined` | Optional | - |
+| Name | Type | Tags | Description | Getter | Setter |
+|  --- | --- | --- | --- | --- | --- |
+| `id` | `?string` | Optional | - | getId(): ?string | setId(?string id): void |
+| `name` | `?string` | Optional | - | getName(): ?string | setName(?string name): void |
+| `message` | `?string` | Optional | - | getMessage(): ?string | setMessage(?string message): void |
 
 ## Example (as JSON)
 

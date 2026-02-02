@@ -7,20 +7,20 @@
 
 ## Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `id` | `string` | Required | - |
-| `name` | `string` | Required | - |
-| `date` | `string` | Required | - |
-| `dateTime` | `string` | Required | - |
-| `decimal` | `number` | Required | - |
-| `mLong` | `bigint` | Required | - |
-| `bool` | `boolean` | Required | - |
-| `customEnum` | [`CustomEnum`](../../doc/models/custom-enum.md) | Required | - |
-| `status` | [`StatusEnum \| undefined`](../../doc/models/status-enum.md) | Optional | - |
-| `jsonObject` | `unknown` | Required | A generic JSON object |
-| `animal` | `unknown` | Required | - |
-| `map` | [`Record<string, Message>`](../../doc/models/message.md) | Required | - |
+| Name | Type | Tags | Description | Getter | Setter |
+|  --- | --- | --- | --- | --- | --- |
+| `id` | `string` | Required | - | getId(): string | setId(string id): void |
+| `name` | `string` | Required | - | getName(): string | setName(string name): void |
+| `date` | `DateTime` | Required | - | getDate(): \DateTime | setDate(\DateTime date): void |
+| `dateTime` | `DateTime` | Required | - | getDateTime(): \DateTime | setDateTime(\DateTime dateTime): void |
+| `decimal` | `float` | Required | - | getDecimal(): float | setDecimal(float decimal): void |
+| `long` | `int` | Required | - | getLong(): int | setLong(int long): void |
+| `bool` | `bool` | Required | - | getBool(): bool | setBool(bool bool): void |
+| `customEnum` | [`string(CustomEnum)`](../../doc/models/custom-enum.md) | Required | - | getCustomEnum(): string | setCustomEnum(string customEnum): void |
+| `status` | [`?string(StatusEnum)`](../../doc/models/status-enum.md) | Optional | - | getStatus(): ?string | setStatus(?string status): void |
+| `jsonObject` | `array` | Required | A generic JSON object | getJsonObject(): array | setJsonObject(array jsonObject): void |
+| `animal` | `array` | Required | - | getAnimal(): array | setAnimal(array animal): void |
+| `map` | [`array<string,Message>`](../../doc/models/message.md) | Required | - | getMap(): array | setMap(array map): void |
 
 ## Example (as JSON)
 

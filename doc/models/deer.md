@@ -7,10 +7,10 @@
 
 ## Fields
 
-| Name | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `name` | `string` | Required | - |
-| `type` | `string` | Required | - |
+| Name | Type | Tags | Description | Getter | Setter |
+|  --- | --- | --- | --- | --- | --- |
+| `name` | `string` | Required | - | getName(): string | setName(string name): void |
+| `type` | `string` | Required | - | getType(): string | setType(string type): void |
 
 ## Example (as JSON)
 
