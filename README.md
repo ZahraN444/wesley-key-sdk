@@ -1,97 +1,123 @@
 
-# Getting Started with Cypress Test API
+# Getting Started with Webhooks and Callbacks API
 
 ## Introduction
 
-This is a sample API to demonstrate an OpenAPI spec with multiple endpoints and a custom model.
+A comprehensive API demonstrating webhooks and callbacks patterns.
+
+### Webhooks
+
+Webhooks allow your application to receive real-time notifications when certain events occur.
+
+### Callbacks
+
+Callbacks are used for asynchronous operations where the API will call back to your provided URL when the operation completes.
 
 ## Install the Package
 
 Run the following command to install the package and automatically add the dependency to your composer.json file:
 
 ```bash
-composer require "gallagher-suarez-traders/wesley-key-sdkabc:3.0.7"
+composer require "gallagher-suarez-traders/wesley-key-sdkabc:4.0.0"
 ```
 
 Or add it to the composer.json file manually as given below:
 
 ```json
 "require": {
-    "gallagher-suarez-traders/wesley-key-sdkabc": "3.0.7"
+    "gallagher-suarez-traders/wesley-key-sdkabc": "4.0.0"
 }
 ```
 
 You can also view the package at:
-https://packagist.org/packages/gallagher-suarez-traders/wesley-key-sdkabc#3.0.7
-
-## Test the SDK
-
-Unit tests in this SDK can be run using PHPUnit.
-
-1. First install the dependencies using composer including the `require-dev` dependencies.
-2. Run `vendor\bin\phpunit --verbose` from commandline to execute tests. If you have installed PHPUnit globally, run tests using `phpunit --verbose` instead.
-
-You can change the PHPUnit test configuration in the `phpunit.xml` file.
+https://packagist.org/packages/gallagher-suarez-traders/wesley-key-sdkabc#4.0.0
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](doc/client.md)
 
 The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| defaultHost | `string` | *Default*: `'www.example.com'` |
-| environment | [`Environment`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/README.md#environments) | The API environment. <br> **Default: `Environment.PRODUCTION`** |
-| timeout | `int` | Timeout for API calls in seconds.<br>*Default*: `0` |
+| timeout | `int` | Timeout for API calls in seconds.<br>*Default*: `50` |
 | enableRetries | `bool` | Whether to enable retries and backoff feature.<br>*Default*: `false` |
 | numberOfRetries | `int` | The number of retries to make.<br>*Default*: `0` |
 | retryInterval | `float` | The retry time interval between the endpoint calls.<br>*Default*: `1` |
 | backOffFactor | `float` | Exponential backoff factor to increase interval between retries.<br>*Default*: `2` |
 | maximumRetryWaitTime | `int` | The maximum wait time in seconds for overall retrying requests.<br>*Default*: `0` |
 | retryOnTimeout | `bool` | Whether to retry on request timeout.<br>*Default*: `true` |
-| httpStatusCodesToRetry | `array` | Http status codes to retry against.<br>*Default*: `408, 413, 429, 500, 502, 503, 504, 521, 522, 524` |
-| httpMethodsToRetry | `array` | Http methods to retry against.<br>*Default*: `'GET', 'PUT'` |
-| proxyConfiguration | [`ProxyConfigurationBuilder`](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/proxy-configuration-builder.md) | Represents the proxy configurations for API calls |
+| httpStatusCodesToRetry | `array` | Http status codes to retry against.<br>*Default*: `408, 413, 429, 500, 502, 503, 504, 521, 522, 524, 408, 413, 429, 500, 502, 503, 504, 521, 522, 524` |
+| httpMethodsToRetry | `array` | Http methods to retry against.<br>*Default*: `'GET', 'PUT', 'GET', 'PUT'` |
+| loggingConfiguration | [`LoggingConfigurationBuilder`](doc/logging-configuration-builder.md) | Represents the logging configurations for API calls |
+| proxyConfiguration | [`ProxyConfigurationBuilder`](doc/proxy-configuration-builder.md) | Represents the proxy configurations for API calls |
+| apiKeyCredentials | [`ApiKeyCredentials`](doc/auth/custom-header-signature.md) | The Credentials Setter for Custom Header Signature |
+| bearerAuthCredentials | [`BearerAuthCredentials`](doc/auth/oauth-2-bearer-token.md) | The Credentials Setter for OAuth 2 Bearer token |
 
 The API client can be initialized as follows:
 
 ```php
-use CypressTestAPILib\Environment;
-use CypressTestAPILib\CypressTestAPIClientBuilder;
+use WebhooksAndCallbacksAPILib\Logging\LoggingConfigurationBuilder;
+use WebhooksAndCallbacksAPILib\Logging\RequestLoggingConfigurationBuilder;
+use WebhooksAndCallbacksAPILib\Logging\ResponseLoggingConfigurationBuilder;
+use Psr\Log\LogLevel;
+use WebhooksAndCallbacksAPILib\Authentication\ApiKeyCredentialsBuilder;
+use WebhooksAndCallbacksAPILib\Authentication\BearerAuthCredentialsBuilder;
+use WebhooksAndCallbacksAPILib\WebhooksAndCallbacksAPIClientBuilder;
 
-$client = CypressTestAPIClientBuilder::init()
-    ->environment(Environment::PRODUCTION)
-    ->defaultHost('www.example.com')
+$client = WebhooksAndCallbacksAPIClientBuilder::init()
+    ->apiKeyCredentials(
+        ApiKeyCredentialsBuilder::init(
+            'X-API-Key'
+        )
+    )
+    ->bearerAuthCredentials(
+        BearerAuthCredentialsBuilder::init(
+            'AccessToken'
+        )
+    )
+    ->loggingConfiguration(
+        LoggingConfigurationBuilder::init()
+            ->level(LogLevel::INFO)
+            ->requestConfiguration(RequestLoggingConfigurationBuilder::init()->body(true))
+            ->responseConfiguration(ResponseLoggingConfigurationBuilder::init()->headers(true))
+    )
     ->build();
 ```
 
-## Environments
+## Authorization
 
-The SDK can be configured to use a different environment for making API calls. Available environments are:
+This API uses the following authentication schemes.
 
-### Fields
-
-| Name | Description |
-|  --- | --- |
-| PRODUCTION | **Default** |
+* [`ApiKey (Custom Header Signature)`](doc/auth/custom-header-signature.md)
+* [`BearerAuth (OAuth 2 Bearer token)`](doc/auth/oauth-2-bearer-token.md)
 
 ## List of APIs
 
-* [API](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/controllers/api.md)
+* [Orders](doc/controllers/orders.md)
+
+## Webhooks
+
+* [Webhooks](doc/events/webhooks/webhooks-handler.md)
+* [Webhooks A](doc/events/webhooks/webhooks-a-handler.md)
+* [Webhooks B](doc/events/webhooks/webhooks-b-handler.md)
+* [Webhooks C](doc/events/webhooks/webhooks-c-handler.md)
+* [Webhooks No Verification](doc/events/webhooks/webhooks-no-verification-handler.md)
 
 ## SDK Infrastructure
 
 ### Configuration
 
-* [ProxyConfigurationBuilder](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/proxy-configuration-builder.md)
+* [ProxyConfigurationBuilder](doc/proxy-configuration-builder.md)
+* [LoggingConfigurationBuilder](doc/logging-configuration-builder.md)
+* [RequestLoggingConfigurationBuilder](doc/request-logging-configuration-builder.md)
+* [ResponseLoggingConfigurationBuilder](doc/response-logging-configuration-builder.md)
 
 ### HTTP
 
-* [HttpRequest](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/http-request.md)
-* [HttpResponse](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/http-response.md)
+* [HttpRequest](doc/http-request.md)
 
 ### Utilities
 
-* [ApiException](https://www.github.com/ZahraN444/wesley-key-sdk/tree/3.0.7/doc/api-exception.md)
+* [ApiResponse](doc/api-response.md)
 

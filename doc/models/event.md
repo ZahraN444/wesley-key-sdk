@@ -1,0 +1,18 @@
+
+# Event
+
+## Enumeration
+
+`Event`
+
+## Fields
+
+| Name |
+|  --- |
+| `ENUM_ORDERCREATED` |
+| `ENUM_ORDERUPDATED` |
+| `ENUM_ORDERCANCELLED` |
+| `ENUM_PAYMENTCOMPLETED` |
+| `ENUM_PAYMENTFAILED` |
+| `ENUM_FULFILLMENTCOMPLETED` |
+

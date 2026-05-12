@@ -9,8 +9,13 @@
     ],
     "authors": [
         {
-            "name": "Kenyon Jacobs",
+            "name": "Kenhttps://www.halefokodaqiby.com",
             "email": "goro@mailinator.com"
+        },
+        {
+            "name": "Doe john",
+            "email": "support@till.com",
+            "homepage": "https://www.halefokodaqiby.com"
         }
     ],
     "support": {},
@@ -25,30 +30,24 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
-        "phan/phan": "5.4.5",
-        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5 || ^10.0 || ^11.0"
+        "phan/phan": "5.4.5"
     },
     "autoload": {
         "psr-4": {
-            "CypressTestAPILib\\": "src/"
+            "WebhooksAndCallbacksAPILib\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CypressTestAPILib\\Tests\\": "tests/"
+            "WebhooksAndCallbacksAPILib\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "test": "phpunit",
-        "test-coverage": "phpunit --coverage-html=coverage",
         "lint-src": "phpcs --standard=phpcs-ruleset.xml src/",
         "lint-src-fix": "phpcbf --standard=phpcs-ruleset.xml src/",
-        "lint-tests": "phpcs --standard=phpcs-ruleset.xml tests/",
-        "lint-tests-fix": "phpcbf --standard=phpcs-ruleset.xml tests/",
         "analyze": "phan --allow-polyfill-parser -p",
         "lint": [
-            "@lint-src",
-            "@lint-tests"
+            "@lint-src"
         ]
     }
 }
